@@ -1,0 +1,21 @@
+const express = require("express");
+
+const {
+    getDashboard
+} = require("../controllers/ownerController");
+
+const {
+    authenticateToken,
+    authorizeRoles
+} = require("../middleware/authMiddleware");
+
+const router = express.Router();
+
+router.get(
+    "/dashboard",
+    authenticateToken,
+    authorizeRoles("OWNER"),
+    getDashboard
+);
+
+module.exports = router;
